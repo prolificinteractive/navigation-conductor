@@ -1,0 +1,2 @@
+include ':app'
+include ':arch-components-navigation'

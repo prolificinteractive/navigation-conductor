@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+apply plugin: 'androidx.navigation.safeargs'
+apply from: rootProject.file('config.gradle')
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+androidExtensions {
+  // LayoutContainer support and a Parcelable implementation generator.
+  // https://kotlinlang.org/docs/tutorials/android-plugin.html
+  experimental = true
+}
+
+
+android {
+  defaultConfig {
+    applicationId 'com.prolificinteractive.conductornav.app'
+  }
+
+  buildTypes {
+    debug {
+      applicationIdSuffix '.debug'
+
+      minifyEnabled false
+      debuggable true
+      multiDexEnabled true
+    }
+
+    release {
+      minifyEnabled true
+      shrinkResources true
+      zipAlignEnabled true
+      multiDexEnabled false
+
+      // Default proguard files
+      proguardFile 'proguard-rules.pro'
+      proguardFile getDefaultProguardFile('proguard-android.txt')
+    }
+  }
+
+  packagingOptions {
+    exclude 'LICENSE.txt'
+    exclude 'META-INF/ASL2.0'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'META-INF/rxjava.properties'
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+  }
+
+  dexOptions {
+    jumboMode true
+    dexInProcess true
+    preDexLibraries true
+    javaMaxHeapSize "4g"
+  }
+}
+
+dependencies {
+  api project(':arch-components-navigation')
+
+  Deps.supportLibs.each { implementation it }
+
+  implementation Deps.glide
+  kapt Deps.glideCompiler
+  implementation Deps.conductor
+
+  implementation Deps.timber
+  implementation Deps.kotlinStdlib
+}
+

@@ -1,0 +1,32 @@
+buildscript {
+  ext.kotlinVersion = "1.2.41"
+  repositories {
+    google()
+    jcenter()
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:${Versions.gradleVersion}"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
+    classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:${Versions.archNavigationVersion}"
+  }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.7'
+}
+
+allprojects {
+  repositories {
+    google()
+    jcenter()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+  }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ControllerNavigator">
+        <attr name="android:name"/>
+        <attr name="android:id"/>
+    </declare-styleable>
+    <declare-styleable name="NavHostLayout">
+        <attr format="reference" name="navGraph"/>
+        <attr format="boolean" name="defaultNavHost"/>
+    </declare-styleable>
+</resources>

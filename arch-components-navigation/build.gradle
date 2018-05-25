@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.file('config.gradle')
+
+dependencies {
+  api Deps.archNavigation
+  api Deps.archEx
+  api Deps.conductor
+  api Deps.kotlinStdlib
+}
+
+ext.artifactId = 'conductor-arch-components-lifecycle'
