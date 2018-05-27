@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
+import androidx.navigation.ui.onNavDestinationSelected
 import com.bluelinelabs.conductor.Controller
 import com.prolificinteractive.conductornav.util.ColorUtil
 import com.prolificinteractive.conductornav.util.findNavController
@@ -32,32 +33,29 @@ class DemoController(args: Bundle) : Controller(args), LayoutContainer {
 
   private fun onViewBound(view: View) {
     if (displayUpMode == DisplayUpMode.HIDE) {
-      view.findViewById<View>(R.id.btn_up).visibility = View.GONE
+      view.findViewById<View>(R.id.upBtn).visibility = View.GONE
     }
 
     view.setBackgroundColor(ColorUtil.getMaterialColor(resources!!, index))
-    tv_title.text = resources!!.getString(R.string.navigation_title, index)
+    midText.text = resources!!.getString(R.string.navigation_title, index)
 
-    btn_next.setOnClickListener {
+    nextBtn.setOnClickListener {
       navController.navigate(DemoControllerDirections
           .toNextController()
           .setIndex(index + 1))
     }
 
-    btn_up.setOnClickListener {
+    upBtn.setOnClickListener {
       navController.navigateUp()
     }
 
-    btn_pop_to_root.setOnClickListener {
+    popToRootBtn.setOnClickListener {
       navController.popBackStack(R.id.firstController, true)
     }
 
     toolbar.title = resources!!.getString(R.string.controller_title)
-    toolbar.inflateMenu(R.menu.menu_controller)
-    toolbar.setOnMenuItemClickListener {
-      navController.navigate(MainDirections.toOtherActivity())
-      true
-    }
+    toolbar.inflateMenu(R.menu.controller)
+    toolbar.setOnMenuItemClickListener { it.onNavDestinationSelected(navController) }
   }
 
   enum class DisplayUpMode {

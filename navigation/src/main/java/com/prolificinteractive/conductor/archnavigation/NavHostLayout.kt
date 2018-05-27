@@ -41,9 +41,7 @@ class NavHostLayout @JvmOverloads constructor(
   private var defaultHost: Boolean = false
   private var viewModel: StateViewModel
   private var navigationController: NavController
-
-  var router: Router
-    private set
+  private var router: Router
 
   init {
     val a = context.obtainStyledAttributes(attrs, com.prolificinteractive.conductor.archnavigation.R.styleable.NavHostLayout)

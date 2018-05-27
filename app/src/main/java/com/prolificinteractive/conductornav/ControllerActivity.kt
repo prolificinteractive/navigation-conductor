@@ -12,7 +12,7 @@ class ControllerActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    if (!controller_container.onBackPressed()) {
+    if (!navHost.onBackPressed()) {
       super.onBackPressed()
     }
   }
