@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@+id/firstController">
+
+    <controller
+        android:id="@+id/firstController"
+        android:name="com.prolificinteractive.conductornav.DemoController"
+        android:label="DemoController"
+        tools:layout="@layout/controller_navigation_demo">
+
+        <argument
+            android:name="index"
+            android:defaultValue="0"
+            app:type="integer" />
+        <argument
+            android:name="displayUpMode"
+            android:defaultValue="0"
+            app:type="integer" />
+        <action
+            android:id="@+id/toNextController"
+            app:destination="@+id/nextController" />
+    </controller>
+
+    <controller
+        android:id="@+id/nextController"
+        android:name="com.prolificinteractive.conductornav.DemoController"
+        android:label="DemoController2"
+        tools:layout="@layout/controller_navigation_demo">
+        <argument
+            android:name="index"
+            android:defaultValue="0"
+            app:type="integer" />
+        <argument
+            android:name="displayUpMode"
+            android:defaultValue="0"
+            app:type="integer" />
+        <action
+            android:id="@+id/toNextController"
+            app:destination="@+id/nextController" />
+    </controller>
+
+    <action
+        android:id="@+id/toOtherActivity"
+        app:clearTask="true"
+        app:destination="@id/activity" />
+    <activity
+        android:id="@+id/activity"
+        android:name="com.prolificinteractive.conductornav.FragmentActivity"
+        android:label="FragmentActivity" />
+</navigation>
