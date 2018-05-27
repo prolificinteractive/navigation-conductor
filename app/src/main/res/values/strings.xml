@@ -1,49 +1,14 @@
 <resources>
     <string name="app_name">Conductor Demo</string>
 
-    <!-- Home Controller -->
-    <string name="about">About</string>
-
-    <!-- Additional Modules Controller -->
-    <string name="additional_modules_explanation">The following modules are provided as additional dependencies, and are not a part of the core library. If you\'ve made a module you want to see included, let us know!</string>
-
     <!-- Navigation Demo -->
+    <string name="controller_title">Conductor Demo</string>
+    <string name="fragment_title">Fragment Demo</string>
+
     <string name="pop_to_root">Pop to Root</string>
     <string name="go_up">Go Up</string>
     <string name="next_controller">Next Controller</string>
-    <string name="navigation_title">Controller #%1$d</string>
-
-    <!-- Transitions Demo -->
-    <string name="next">Next</string>
-
-    <!-- Parent Controller Demo -->
-    <string name="parent_controller">Parent Controller</string>
-    <string name="go_to_next_parent">Go to next parent</string>
-
-    <!-- Target Demo -->
-    <string name="pick_title">Pick Title (From another Controller)</string>
-    <string name="pick_image">Pick Image (From Gallery)</string>
-    <string name="enter_title">Enter Title</string>
-    <string name="use_title">Use Title</string>
-
-    <!-- Drag Dismiss Demo -->
-    <string name="drag_to_dismiss">Elastic scrolling view - scroll past bounds to dismiss.</string>
-
-    <!-- RxLifecycle Demo -->
-    <string name="rxlifecycle_title">Watch tag %1$s on logcat for a demo.</string>
-    <string name="next_controller_retain">Push Controller, retaining this View</string>
-    <string name="next_controller_release">Push Controller, releasing this View</string>
-
-    <!-- Master/Detail Demo -->
-    <string name="rotate_for_two_pane">Rotate your device for a two pane view.</string>
-
-    <!-- Transitions -->
-    <string name="fab_dialog_transition_name">transition.fab</string>
-    <string name="transition_tag_dot">transition.dot</string>
-    <string name="transition_tag_title">transition.title</string>
-    <string name="transition_tag_dot_indexed">transition.dot%1$d</string>
-    <string name="transition_tag_title_indexed">transition.title%1$d</string>
-    <string name="transition_tag_image_named">transition.image%1$s</string>
-    <string name="transition_tag_title_named">transition.title%1$s</string>
+    <string name="next_fragment">Next Fragment</string>
+    <string name="navigation_title">View #%1$d</string>
 
 </resources>

@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'androidx.navigation.safeargs'
 apply from: rootProject.file('config.gradle')
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 androidExtensions {
@@ -58,14 +56,14 @@ android {
 }
 
 dependencies {
-  api project(':arch-components-navigation')
-
+  implementation project(':navigation')
+  implementation Deps.archNavigationFragment
   Deps.supportLibs.each { implementation it }
 
   implementation Deps.glide
   kapt Deps.glideCompiler
-  implementation Deps.conductor
 
+  implementation Deps.conductor
   implementation Deps.timber
   implementation Deps.kotlinStdlib
 }

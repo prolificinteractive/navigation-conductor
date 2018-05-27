@@ -2,17 +2,14 @@ package com.prolificinteractive.conductornav
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_navmain.toolbar
-import kotlinx.android.synthetic.main.activity_navmain.controller_container
+import kotlinx.android.synthetic.main.activity_controller.*
 
-class MainActivity : AppCompatActivity() {
+class ControllerActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    setContentView(R.layout.activity_navmain)
-
-    setSupportActionBar(toolbar)
+    setContentView(R.layout.activity_controller)
   }
 
   override fun onBackPressed() {
