@@ -1,5 +1,19 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+  }
+}
+
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
 apply from: rootProject.file('config.gradle')
+
+group='com.github.prolificinteractive.navigation'
+project.archivesBaseName = 'navigation-conductor'
+version = '0.1.0'
 
 dependencies {
   api Deps.archNavigation
