@@ -48,10 +48,15 @@ android {
   }
 
   dexOptions {
-    jumboMode true
     dexInProcess true
     preDexLibraries true
     javaMaxHeapSize "4g"
+  }
+
+  testOptions {
+    unitTests {
+      includeAndroidResources = true
+    }
   }
 }
 
@@ -66,5 +71,9 @@ dependencies {
   implementation Deps.conductor
   implementation Deps.timber
   implementation Deps.kotlinStdlib
+
+  Deps.testLibs.each { testImplementation it }
+  Deps.androidTestLibs.each { androidTestImplementation it }
+
 }
 
