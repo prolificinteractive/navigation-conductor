@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import com.prolificinteractive.conductornav.util.ColorUtil
 import kotlinx.android.synthetic.main.fragment_navigation_demo.*
 
@@ -23,32 +24,29 @@ class DemoFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     if (displayUpMode == DisplayUpMode.HIDE) {
-      view.findViewById<View>(R.id.btn_up).visibility = View.GONE
+      view.findViewById<View>(R.id.upBtn).visibility = View.GONE
     }
 
     view.setBackgroundColor(ColorUtil.getMaterialColor(resources, index))
-    tv_title.text = resources.getString(R.string.navigation_title, index)
+    midText.text = resources.getString(R.string.navigation_title, index)
 
-    btn_next.setOnClickListener {
-      navController.navigate(DemoControllerDirections
-          .toNextController()
+    nextBtn.setOnClickListener {
+      navController.navigate(DemoFragmentDirections
+          .toNextFragment()
           .setIndex(index + 1))
     }
 
-    btn_up.setOnClickListener {
+    upBtn.setOnClickListener {
       navController.navigateUp()
     }
 
-    btn_pop_to_root.setOnClickListener {
+    popToRootBtn.setOnClickListener {
       navController.popBackStack(R.id.firstController, true)
     }
 
     toolbar.title = resources.getString(R.string.fragment_title)
-    toolbar.inflateMenu(R.menu.menu_fragment)
-    toolbar.setOnMenuItemClickListener {
-      navController.navigate(MainDirections.toOtherActivity())
-      false
-    }
+    toolbar.inflateMenu(R.menu.fragment)
+    toolbar.setOnMenuItemClickListener { it.onNavDestinationSelected(navController) }
   }
 
   enum class DisplayUpMode {

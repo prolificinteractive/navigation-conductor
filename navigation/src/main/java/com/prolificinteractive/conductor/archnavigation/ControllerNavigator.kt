@@ -23,10 +23,10 @@ class ControllerNavigator(private val router: Router) : Navigator<ControllerNavi
 
   private var lastPoppedTag: String = ""
 
-  private val lastTag: String?
+  private val lastTag: String
     get() {
       lastTransaction ?: return lastPoppedTag
-      return lastTransaction?.tag()
+      return lastTransaction?.tag().orEmpty()
     }
 
   init {
@@ -45,12 +45,12 @@ class ControllerNavigator(private val router: Router) : Navigator<ControllerNavi
                                      container: ViewGroup,
                                      handler: ControllerChangeHandler) {
         val backStackEffect = if (isPush) {
-          Navigator.BACK_STACK_DESTINATION_ADDED
+          BACK_STACK_DESTINATION_ADDED
         } else {
-          Navigator.BACK_STACK_DESTINATION_POPPED
+          BACK_STACK_DESTINATION_POPPED
         }
 
-        dispatchOnNavigatorNavigated(Integer.valueOf(lastTag), backStackEffect)
+        dispatchOnNavigatorNavigated(lastTag.toIntOrNull() ?: BACK_STACK_UNCHANGED, backStackEffect)
       }
     })
   }
