@@ -44,7 +44,7 @@ res/layout/activity.xml
           android:layout_height="match_parent"
           app:defaultNavHost="true"
           app:navGraph="@navigation/graph" />
-  
+
   </FrameLayout>
 ```
 

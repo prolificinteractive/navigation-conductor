@@ -112,8 +112,8 @@ object Deps {
   val hamcrest = "org.hamcrest:hamcrest-all:1.3"
   val kluent = "org.amshove.kluent:kluent:1.38"
   val kluentAndroid = "org.amshove.kluent:kluent-android:1.38"
-  val robolectric = "org.robolectric:robolectric:4.0-alpha-1"
-  val robolectricMultiDex = "org.robolectric:shadows-multidex:4.0-alpha-1"
+  val robolectric = "org.robolectric:robolectric:4.0-alpha-2"
+  val robolectricMultiDex = "org.robolectric:shadows-multidex:4.0-alpha-2"
 
   val testRunner = "com.android.support.test:runner:1.0.2"
   val testRules = "com.android.support.test:rules:1.0.2"

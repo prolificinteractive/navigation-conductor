@@ -72,7 +72,6 @@ proguard/
 
 # Log Files
 *.log
-gradle.properties
 captures
 keystores
 debug.properties
