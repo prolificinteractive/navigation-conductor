@@ -11,9 +11,15 @@ import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import androidx.navigation.*
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.NavHost
+import androidx.navigation.Navigation
+import androidx.navigation.Navigator
+import androidx.navigation.plusAssign
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
+
 
 /**
  * NavHostController provides an area within your layout for self-contained navigation to occur.
@@ -55,7 +61,7 @@ class NavHostLayout @JvmOverloads constructor(
     router = Conductor.attachRouter(this.context as Activity, this, savedInstanceState)
     navigationController = NavController(context)
     Navigation.setViewNavController(this, navigationController)
-    navigationController.navigatorProvider.addNavigator(createControllerNavigator())
+    navigationController.navigatorProvider += createControllerNavigator()
 
     var navState: Bundle? = null
     if (savedInstanceState != null) {
