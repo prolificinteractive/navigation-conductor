@@ -5,14 +5,14 @@ object Versions {
   const val compileSdkVersion = 27
   const val targetSdkVersion = 27
   const val gradleVersion = "3.2.0-alpha16"
-  const val kotlinVersion = "1.2.41"
+  const val kotlinVersion = "1.2.51"
 
   const val versionCode = 1
   const val versionName = "0.1.1"
 
   // Libraries Version
   const val archVersion = "1.1.1"
-  const val archNavigationVersion = "1.0.0-alpha01"
+  const val archNavigationVersion = "1.0.0-alpha05"
   const val archPagingVersion = "1.0.0"
   const val archWorkVersion = "1.0.0-alpha01"
   const val archRoomVersion = "1.1.0"

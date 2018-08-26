@@ -50,6 +50,7 @@ class ControllerTest(private val clazz: Class<out Activity>) {
 
     try {
       activity.findViewById<TextView>(R.id.upBtn).performClick()
+      activity.findViewById<TextView>(R.id.nextBtn).performClick()
       fail("there should have been a crash")
     } catch (e: IllegalArgumentException) {
     }
