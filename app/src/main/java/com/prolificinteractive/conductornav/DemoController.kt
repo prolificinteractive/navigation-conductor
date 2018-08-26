@@ -50,7 +50,7 @@ class DemoController(args: Bundle) : Controller(args), LayoutContainer {
     }
 
     popToRootBtn.setOnClickListener {
-      navController.popBackStack(R.id.firstController, true)
+      navController.popBackStack(R.id.firstController, false)
     }
 
     toolbar.title = resources!!.getString(R.string.controller_title)

@@ -14,11 +14,11 @@
         <argument
             android:name="index"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <argument
             android:name="displayUpMode"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <action
             android:id="@+id/toNextFragment"
             app:destination="@+id/nextFragment" />
@@ -32,11 +32,11 @@
         <argument
             android:name="index"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <argument
             android:name="displayUpMode"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <action
             android:id="@+id/toNextFragment"
             app:destination="@+id/nextFragment" />

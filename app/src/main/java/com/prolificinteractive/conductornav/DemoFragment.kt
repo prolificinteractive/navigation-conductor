@@ -41,7 +41,7 @@ class DemoFragment : Fragment() {
     }
 
     popToRootBtn.setOnClickListener {
-      navController.popBackStack(R.id.firstController, true)
+      navController.popBackStack(R.id.firstFragment, false)
     }
 
     toolbar.title = resources.getString(R.string.fragment_title)
