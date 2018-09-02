@@ -1,16 +1,16 @@
 package com.prolificinteractive.fragmentx.archnavigation
 
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.*
 import com.ncapdevi.fragnav.FragNavController
 import com.prolificinteractive.conductor.archnavigation.R

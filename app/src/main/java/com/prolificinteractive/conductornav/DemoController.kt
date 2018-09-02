@@ -12,6 +12,7 @@ import com.prolificinteractive.conductornav.util.findNavController
 import kotlinx.android.extensions.CacheImplementation
 import kotlinx.android.extensions.ContainerOptions
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.controller_navigation_demo.toolbar as toolbar
 import kotlinx.android.synthetic.main.controller_navigation_demo.*
 
 @ContainerOptions(cache = CacheImplementation.NO_CACHE)

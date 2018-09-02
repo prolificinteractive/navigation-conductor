@@ -1,16 +1,11 @@
 package com.prolificinteractive.conductornav
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import kotlinx.android.synthetic.main.activity_fragmentx.*
 
 class FragmentXActivity : AppCompatActivity() {

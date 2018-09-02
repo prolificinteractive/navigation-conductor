@@ -2,9 +2,9 @@ package com.prolificinteractive.fragmentx.archnavigation
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.AttributeSet
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.navigation.*
 import com.ncapdevi.fragnav.FragNavController
 import com.prolificinteractive.conductor.archnavigation.R
