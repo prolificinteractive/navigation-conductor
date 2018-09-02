@@ -106,6 +106,7 @@ object Deps {
   // Testing
   val jUnit = "junit:junit:$junitVersion"
   val mockito = "org.mockito:mockito-core:2.18.3"
+  val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1"
   val hamcrest = "org.hamcrest:hamcrest-all:1.3"
   val kluent = "org.amshove.kluent:kluent:1.38"
   val kluentAndroid = "org.amshove.kluent:kluent-android:1.38"

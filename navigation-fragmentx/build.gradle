@@ -21,7 +21,7 @@ dependencies {
   api Deps.kotlinStdlib
 
 
-  api "com.ncapdevi:frag-nav:2.4.0"
+  api project(":frag-nav")
 }
 
 ext.artifactId = 'conductor-arch-components-lifecycle'
