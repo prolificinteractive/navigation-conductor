@@ -10,5 +10,11 @@
     <string name="next_controller">Next Controller</string>
     <string name="next_fragment">Next Fragment</string>
     <string name="navigation_title">View #%1$d</string>
+    <string name="fragmentx_title">FragmentX Demo</string>
+    <string name="food">Food</string>
+    <string name="friends">Friends</string>
+    <string name="nearby">Nearby</string>
+    <string name="favorites">Favorites</string>
+    <string name="recents">Recents</string>
 
 </resources>

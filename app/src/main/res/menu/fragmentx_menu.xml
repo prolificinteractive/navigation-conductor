@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/recentsFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_recents"
+        android:title="@string/recents"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/favoritesFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorites"
+        android:title="@string/favorites"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/nearbyFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_nearby"
+        android:title="@string/nearby"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/friendsFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_people"
+        android:title="@string/friends"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/foodFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_food"
+        android:title="@string/food"
+        app:showAsAction="always" />
+</menu>

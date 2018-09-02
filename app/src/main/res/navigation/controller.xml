@@ -43,11 +43,19 @@
     </controller>
 
     <action
-        android:id="@+id/toOtherActivity"
+        android:id="@+id/toFragmentActivity"
         app:clearTask="true"
-        app:destination="@id/activity" />
+        app:destination="@+id/fragmentActivity" />
     <activity
-        android:id="@+id/activity"
+        android:id="@+id/fragmentActivity"
         android:name="com.prolificinteractive.conductornav.FragmentActivity"
         android:label="FragmentActivity" />
+    <action
+        android:id="@+id/toFragmentXActivity"
+        app:clearTask="true"
+        app:destination="@+id/fragmentXActivity" />
+    <activity
+        android:id="@+id/fragmentXActivity"
+        android:name="com.prolificinteractive.conductornav.FragmentXActivity"
+        android:label="FragmentXActivity" />
 </navigation>

@@ -4,6 +4,6 @@
         android:id="@+id/toControllerActivity"
         android:title="Controller Demo"/>
     <item
-        android:id="@+id/toFragmentXActivity"
-        android:title="FragmentX Demo"/>
+        android:id="@+id/toFragmentActivity"
+        android:title="Fragment Demo"/>
 </menu>
