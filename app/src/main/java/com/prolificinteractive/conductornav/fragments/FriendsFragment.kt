@@ -1,16 +1,15 @@
 package com.prolificinteractive.conductornav.fragments
 
-import android.os.Bundle
-import android.view.View
+import androidx.navigation.NavDirections
+import com.prolificinteractive.conductornav.R
 
 class FriendsFragment : BaseFragment() {
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    btn.setOnClickListener {
-      navController.navigate(FriendsFragmentDirections.toNextFriendsFragment()
-          .setComNcapdeviSampleArgsInstance(mInt + 1))
-    }
-    btn.text = javaClass.simpleName + " " + mInt
-  }
+  override val nextDirections: NavDirections
+    get() = FriendsFragmentDirections.toNextFriendsFragment()
+        .setComNcapdeviSampleArgsInstance(index + 1)
+
+  override val rootId: Int
+    get() = R.id.friendsFragment
+
 }

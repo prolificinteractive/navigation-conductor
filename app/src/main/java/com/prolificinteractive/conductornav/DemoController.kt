@@ -38,7 +38,7 @@ class DemoController(args: Bundle) : Controller(args), LayoutContainer {
     }
 
     view.setBackgroundColor(ColorUtil.getMaterialColor(resources!!, index))
-    midText.text = resources!!.getString(R.string.navigation_title, index)
+    midText.text = resources!!.getString(R.string.navigation_title, "View ", index)
 
     nextBtn.setOnClickListener {
       navController.navigate(DemoControllerDirections

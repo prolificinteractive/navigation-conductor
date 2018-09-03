@@ -1,16 +1,13 @@
 package com.prolificinteractive.conductornav.fragments
 
-import android.os.Bundle
-import android.view.View
+import androidx.navigation.NavDirections
+import com.prolificinteractive.conductornav.R
 
 class FavoritesFragment : BaseFragment() {
+  override val nextDirections: NavDirections
+    get() = FavoritesFragmentDirections.toNextFavoritesFragment()
+        .setComNcapdeviSampleArgsInstance(index + 1)
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    btn.setOnClickListener {
-      navController.navigate(FavoritesFragmentDirections.toNextFavoritesFragment()
-          .setComNcapdeviSampleArgsInstance(mInt + 1))
-    }
-    btn.text = javaClass.simpleName + " " + mInt
-  }
+  override val rootId: Int
+    get() = R.id.favoritesFragment
 }

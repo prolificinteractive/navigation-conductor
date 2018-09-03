@@ -1,16 +1,13 @@
 package com.prolificinteractive.conductornav.fragments
 
-import android.os.Bundle
-import android.view.View
+import androidx.navigation.NavDirections
+import com.prolificinteractive.conductornav.R
 
 class FoodFragment : BaseFragment() {
+  override val nextDirections: NavDirections
+    get() = FoodFragmentDirections.toNextFoodFragment()
+        .setComNcapdeviSampleArgsInstance(index + 1)
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    btn.setOnClickListener {
-      navController.navigate(FoodFragmentDirections.toNextFoodFragment()
-          .setComNcapdeviSampleArgsInstance(mInt + 1))
-    }
-    btn.text = javaClass.simpleName + " " + mInt
-  }
+  override val rootId: Int
+    get() = R.id.foodFragment
 }
