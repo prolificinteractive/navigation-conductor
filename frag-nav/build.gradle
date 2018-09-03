@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: rootProject.file('config.gradle')
+
+group='com.github.prolificinteractive.navigation'
+project.archivesBaseName = 'navigation-frag-nav'
+version = '0.1.0'
+
+dependencies {
+  api Deps.archNavigation
+  api Deps.archEx
+  api Deps.supportLibs.each { api it }
+  api Deps.kotlinStdlib
+
+  testImplementation Deps.jUnit
+  testImplementation Deps.mockitoKotlin
+  testImplementation Deps.robolectric
+}

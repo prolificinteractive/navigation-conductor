@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FragmentXNavigator">
+        <attr name="android:name"/>
+        <attr name="android:id"/>
+        <attr format="boolean" name="isRoot"/>
+    </declare-styleable>
+    <declare-styleable name="NavHostLayout">
+        <attr format="reference" name="navGraph"/>
+        <attr format="reference" name="menuRes"/>
+        <attr format="boolean" name="defaultNavHost"/>
+    </declare-styleable>
+</resources>

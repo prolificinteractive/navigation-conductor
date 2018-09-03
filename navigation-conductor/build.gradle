@@ -11,7 +11,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply from: rootProject.file('config.gradle')
 
-group='com.github.prolificinteractive.navigation'
+group='com.github.tevjef.navigation'
 project.archivesBaseName = 'navigation-conductor'
 version = '0.1.0'
 

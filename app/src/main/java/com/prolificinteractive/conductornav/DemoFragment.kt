@@ -1,10 +1,10 @@
 package com.prolificinteractive.conductornav
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -41,7 +41,7 @@ class DemoFragment : Fragment() {
     }
 
     popToRootBtn.setOnClickListener {
-      navController.popBackStack(R.id.firstController, true)
+      navController.popBackStack(R.id.firstFragment, false)
     }
 
     toolbar.title = resources.getString(R.string.fragment_title)

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/main2"
     app:startDestination="@+id/firstFragment">
 
     <fragment
@@ -14,11 +14,11 @@
         <argument
             android:name="index"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <argument
             android:name="displayUpMode"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <action
             android:id="@+id/toNextFragment"
             app:destination="@+id/nextFragment" />
@@ -32,22 +32,31 @@
         <argument
             android:name="index"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <argument
             android:name="displayUpMode"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" />
         <action
             android:id="@+id/toNextFragment"
             app:destination="@+id/nextFragment" />
     </fragment>
 
     <action
-        android:id="@+id/toOtherActivity"
+        android:id="@+id/toControllerActivity"
         app:clearTask="true"
-        app:destination="@+id/activity" />
+        app:destination="@+id/controllerActivity" />
     <activity
-        android:id="@+id/activity"
+        android:id="@+id/controllerActivity"
         android:name="com.prolificinteractive.conductornav.ControllerActivity"
         android:label="ControllerActivity" />
+    <action
+        android:id="@+id/toFragmentXActivity"
+        app:clearTask="true"
+        app:destination="@+id/fragmentXActivity" />
+    <activity
+        android:id="@+id/fragmentXActivity"
+        android:name="com.prolificinteractive.conductornav.FragmentXActivity"
+        android:label="FragmentXActivity" />
+
 </navigation>

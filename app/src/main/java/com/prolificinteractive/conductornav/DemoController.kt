@@ -12,6 +12,7 @@ import com.prolificinteractive.conductornav.util.findNavController
 import kotlinx.android.extensions.CacheImplementation
 import kotlinx.android.extensions.ContainerOptions
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.controller_navigation_demo.toolbar as toolbar
 import kotlinx.android.synthetic.main.controller_navigation_demo.*
 
 @ContainerOptions(cache = CacheImplementation.NO_CACHE)
@@ -37,7 +38,7 @@ class DemoController(args: Bundle) : Controller(args), LayoutContainer {
     }
 
     view.setBackgroundColor(ColorUtil.getMaterialColor(resources!!, index))
-    midText.text = resources!!.getString(R.string.navigation_title, index)
+    midText.text = resources!!.getString(R.string.navigation_title, "View ", index)
 
     nextBtn.setOnClickListener {
       navController.navigate(DemoControllerDirections
@@ -50,7 +51,7 @@ class DemoController(args: Bundle) : Controller(args), LayoutContainer {
     }
 
     popToRootBtn.setOnClickListener {
-      navController.popBackStack(R.id.firstController, true)
+      navController.popBackStack(R.id.firstController, false)
     }
 
     toolbar.title = resources!!.getString(R.string.controller_title)

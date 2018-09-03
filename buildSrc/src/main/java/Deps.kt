@@ -1,27 +1,23 @@
 import Versions.archNavigationVersion
 import Versions.archPagingVersion
 import Versions.archRoomVersion
-import Versions.archVersion
 import Versions.archWorkVersion
 import Versions.glideVersion
 import Versions.junitVersion
 import Versions.kotlinVersion
-import Versions.supportLibraryVersion
+import Versions.lifecycleVersion
 
 @Suppress("MayBeConstant", "MemberVisibilityCanBePrivate", "unused")
 object Deps {
 
   // Support Libraries
-  val appcompatV7 = "com.android.support:appcompat-v7:$supportLibraryVersion"
-  val design = "com.android.support:design:$supportLibraryVersion"
-  val recyclerviewV7 = "com.android.support:recyclerview-v7:$supportLibraryVersion"
-  val supportAnnotations = "com.android.support:support-annotations:$supportLibraryVersion"
-  val supportV4 = "com.android.support:support-v4:$supportLibraryVersion"
-  val gridLayout = "com.android.support:gridlayout-v7:$supportLibraryVersion"
-  val cardView = "com.android.support:cardview-v7:$supportLibraryVersion"
-  val customtabs = "com.android.support:customtabs:$supportLibraryVersion"
-  val constraintLayout = "com.android.support.constraint:constraint-layout:1.1.0-beta5"
-  val multidex = "com.android.support:multidex:1.0.3"
+  val appcompatV7 = "androidx.appcompat:appcompat:1.0.0-alpha1"
+  val design = "com.google.android.material:material:1.0.0-alpha1"
+  val recyclerviewV7 = "androidx.recyclerview:recyclerview:1.0.0-alpha1"
+  val supportAnnotations = "androidx.annotation:annotation:1.0.0-alpha1"
+  val cardView = "androidx.cardview:cardview:1.0.0-alpha1"
+  val constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.0"
+  val multidex = "androidx.multidex:multidex:2.0.0"
 
   // Play Services
   // https://developers.google.com/android/guides/setup
@@ -39,13 +35,14 @@ object Deps {
    */
 
   // ViewModel and LiveData
-  val archEx = "android.arch.lifecycle:extensions:$archVersion"
-  val archJava = "android.arch.lifecycle:common-java8:$archVersion"
-  val archRuntime = "android.arch.lifecycle:runtime:$archVersion"
-  val archViewModel = "android.arch.lifecycle:viewmodel:$archVersion"
-  val archReactiveStreams = "android.arch.lifecycle:reactivestreams:$archVersion"
+  val archEx = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+  val archJava = "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+  val archRuntime = "androidx.lifecycle:lifecycle-runtime:$lifecycleVersion"
+  val archViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+  val lifecycleCompilers = "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+  val archReactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
   // optional - Test helpers for LiveData
-  val archCoreTesting = "android.arch.core:core-testing:$archVersion"
+  val archCoreTesting = "androidx.arch.core:core-testing:$lifecycleVersion"
 
   // Navigation
   val archNavigationFragment = "android.arch.navigation:navigation-fragment-ktx:$archNavigationVersion"
@@ -76,12 +73,12 @@ object Deps {
       archJava,
       archReactiveStreams,
       archNavigationFragment,
-      archNavigation,
-      archRoomRuntime,
-      archPagingRuntime,
-      archPagingRxJava,
-      archWorkRuntime,
-      archWorkFirebase
+      archNavigation
+//      archRoomRuntime,
+//      archPagingRuntime,
+//      archPagingRxJava,
+//      archWorkRuntime,
+//      archWorkFirebase
   )
 
   val archAP = listOf(
@@ -109,11 +106,12 @@ object Deps {
   // Testing
   val jUnit = "junit:junit:$junitVersion"
   val mockito = "org.mockito:mockito-core:2.18.3"
+  val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1"
   val hamcrest = "org.hamcrest:hamcrest-all:1.3"
   val kluent = "org.amshove.kluent:kluent:1.38"
   val kluentAndroid = "org.amshove.kluent:kluent-android:1.38"
-  val robolectric = "org.robolectric:robolectric:4.0-alpha-2"
-  val robolectricMultiDex = "org.robolectric:shadows-multidex:4.0-alpha-2"
+  val robolectric = "org.robolectric:robolectric:4.0-alpha-3"
+  val robolectricMultiDex = "org.robolectric:shadows-multidex:4.0-alpha-3"
 
   val testRunner = "com.android.support.test:runner:1.0.2"
   val testRules = "com.android.support.test:rules:1.0.2"
@@ -123,14 +121,11 @@ object Deps {
   val supportLibs = listOf(
       appcompatV7,
       cardView,
-      gridLayout,
       constraintLayout,
-      customtabs,
       design,
       multidex,
       recyclerviewV7,
-      supportAnnotations,
-      supportV4
+      supportAnnotations
   )
 
   val firebase = listOf(

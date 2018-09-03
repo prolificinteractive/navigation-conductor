@@ -1,0 +1,27 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply from: rootProject.file('config.gradle')
+
+group='com.github.tevjef.navigation'
+project.archivesBaseName = 'navigation-fragmentx'
+version = '0.1.0'
+
+dependencies {
+  api Deps.archNavigation
+  api Deps.archEx
+  api Deps.kotlinStdlib
+
+
+  api project(":frag-nav")
+}
+
+ext.artifactId = 'conductor-arch-components-lifecycle'

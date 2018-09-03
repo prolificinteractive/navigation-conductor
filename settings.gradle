@@ -1,2 +1,4 @@
 include ':app'
-include ':navigation'
+include ':frag-nav'
+include ':navigation-conductor'
+include ':navigation-fragmentx'
