@@ -1,6 +1,7 @@
 package com.prolificinteractive.conductornav
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -20,6 +21,7 @@ class FragmentXActivity : AppCompatActivity() {
     bottom_navigation.setOnNavigationItemSelectedListener { item ->
       onNavDestinationSelected(item, navController, false)
     }
+
     navController.addOnNavigatedListener { _, destination ->
       val destinationId = destination.id
       val menu = bottom_navigation.menu
@@ -36,7 +38,9 @@ class FragmentXActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    navHost.onBackPressed()
+    if (!navController.navigateUp()) {
+      super.onBackPressed()
+    }
   }
 
   companion object {
@@ -57,6 +61,7 @@ class FragmentXActivity : AppCompatActivity() {
         navController.navigate(item.itemId, null, options)
         true
       } catch (e: IllegalArgumentException) {
+        Log.e("FragmentXActivity", e.message, e)
         false
       }
 

@@ -43,7 +43,7 @@ class NavHostLayout @JvmOverloads constructor(
   private var menuRes: Int = 0
   private var viewModel: StateViewModel
   private var navigationController: NavController
-  private var fragNavBuilder: FragNavController.Builder
+  private var controller: FragNavController
 
   private var fragmentXNavigator: FragmentXNavigator
 
@@ -54,34 +54,23 @@ class NavHostLayout @JvmOverloads constructor(
     menuRes = a.getResourceId(R.styleable.NavHostLayout_menuRes, 0)
     a.recycle()
 
-
-//    val popupMenu = PopupMenu(context, View(context))
-//    val menu = popupMenu.menu
-//    MenuInflater(context).inflate(menuRes, menu)
-//
-//    for (m in 0..menu.size()) {
-//
-//    }
-
     viewModel = ViewModelProviders.of(context as AppCompatActivity).get(StateViewModel::class.java)
     val savedInstanceState = viewModel.state
 
-    fragNavBuilder = FragNavController.newBuilder(savedInstanceState, (this.context as AppCompatActivity).supportFragmentManager, id)
+    controller = FragNavController((this.context as AppCompatActivity).supportFragmentManager, id)
 
     navigationController = NavController(context)
 
 
     val rootFragments = mutableListOf<Fragment>()
 
-    fragmentXNavigator = FragmentXNavigator(fragNavBuilder) {
-      rootFragments
-    }
+    fragmentXNavigator = FragmentXNavigator(controller)
 
     navigationController.navigatorProvider += fragmentXNavigator
 
+    // Inflate the nav graph to find the rootFragments
     val inflator = NavInflater(context, navigationController.navigatorProvider)
     val navGraph = inflator.inflate(graphId)
-
     rootFragments.addAll(navGraph.mapNotNull {
       if (it is FragmentXNavigator.Destination && it.isRootFragment) {
         it.createFragment(null)
@@ -89,6 +78,8 @@ class NavHostLayout @JvmOverloads constructor(
         null
       }
     })
+
+    controller.rootFragments = rootFragments
 
     Navigation.setViewNavController(this, navigationController)
 
@@ -112,12 +103,6 @@ class NavHostLayout @JvmOverloads constructor(
           navigationController.setMetadataGraph()
         }
       }
-    }
-  }
-
-  fun onBackPressed() {
-    when {
-      fragmentXNavigator.controller.isRootFragment.not() -> fragmentXNavigator.controller.popFragment()
     }
   }
 

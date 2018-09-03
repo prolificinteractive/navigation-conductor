@@ -7,101 +7,156 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
 import com.ncapdevi.fragnav.FragNavController
+import com.ncapdevi.fragnav.FragNavController.Companion.DETACH_ON_NAVIGATE_HIDE_ON_SWITCH
 import com.prolificinteractive.conductor.archnavigation.R
 import com.prolificinteractive.fragmentx.archnavigation.FragmentXNavigator.Destination
-import java.lang.reflect.Constructor
 import java.util.*
 import kotlin.collections.set
 
 @Navigator.Name("fragmentx")
-class FragmentXNavigator(private val fragNavBuilder: FragNavController.Builder, provider: () -> List<Fragment>) : Navigator<Destination>() {
+class FragmentXNavigator(private val controller: FragNavController) : Navigator<Destination>() {
 
+  companion object {
+    const val NO_INDEX = -1
+    const val ARG_DESTINATION_ID = "destinationId"
 
-  private lateinit var rootFragments: List<Fragment>
-
-  val controller: FragNavController by lazy {
-    this.rootFragments = provider()
-    val c = fragNavBuilder.rootFragments(rootFragments)
-        .transactionListener(TabChange())
-        .build()
-
-    c
+    private const val KEY_LAST_TAB_TRANSACTION_ID = "lastTabTransactionId"
+    private const val KEY_LAST_TAB_TRANSACTION_INDEX = "lastTabTransactionIndex"
   }
 
-  inner class TabChange : FragNavController.TransactionListener {
+  private val transactionListener = TransactionListener()
 
-    var lastTabTransactionId: Int = 0
-    var lastTabTransactionIndex: Int = 0
+  private var isInitialized: Boolean = true
+  private var savedState: Bundle = Bundle()
 
-    override fun onFragmentTransaction(f: Fragment?, p1: FragNavController.TransactionType?) {
-      val id = getFragmentId(f)
-
-      id?.let {
-        when (p1) {
-          FragNavController.TransactionType.PUSH -> dispatchOnNavigatorNavigated(it, BACK_STACK_DESTINATION_ADDED)
-          FragNavController.TransactionType.POP -> dispatchOnNavigatorNavigated(it, BACK_STACK_DESTINATION_POPPED)
-          FragNavController.TransactionType.REPLACE -> dispatchOnNavigatorNavigated(it, BACK_STACK_UNCHANGED)
-        }
-      }
-    }
-
-    override fun onTabTransaction(f: Fragment?, p1: Int) {
-//      Log.d("Navigator", "onTabTransaction ${f?.javaClass?.simpleName}")
-//
-//      val id = getFragmentId(f)
-//
-//      if (lastTabTransactionIndex != 0) {
-//        val lastStack = controller.getStack(lastTabTransactionIndex)
-//        lastStack.orEmpty().forEach { fragment ->
-//          Log.d("Navigator", "dispatchOnNavigatorNavigated(BACK_STACK_DESTINATION_POPPED) ${fragment.javaClass.simpleName}")
-//          getFragmentId(fragment)?.let { fragmentID ->
-//            dispatchOnNavigatorNavigated(fragmentID, BACK_STACK_DESTINATION_POPPED)
-//          }
-//        }
-//      }
-//
-//      controller.currentStack.orEmpty().forEach { fragment ->
-//        getFragmentId(fragment)?.let { fragmentID ->
-//          Log.d("Navigator", "dispatchOnNavigatorNavigated(BACK_STACK_DESTINATION_ADDED) ${fragment.javaClass.simpleName}")
-//          dispatchOnNavigatorNavigated(fragmentID, BACK_STACK_DESTINATION_ADDED)
-//        }
-//      }
-//
-//      lastTabTransactionIndex = p1
-//      id?.let {
-//        lastTabTransactionId = id
-//      }
-    }
+  init {
+    controller.transactionListener = transactionListener
+    controller.fragmentHideStrategy = DETACH_ON_NAVIGATE_HIDE_ON_SWITCH
   }
 
   fun getFragmentId(f: Fragment?): Int? {
-    val id = f?.arguments?.getInt("destinationId")
-    return id
+    return f?.arguments?.getInt("destinationId")
   }
 
-  override fun popBackStack(): Boolean = true
+  override fun popBackStack(): Boolean {
+    Log.d("Navigator#popBackStack", "size: ${controller.currentStack.orEmpty().size} currentFrag: ${controller.currentFrag}")
+    return if (controller.currentStack.orEmpty().size > 1) {
+      controller.popFragment()
+    } else {
+      false
+    }
+  }
 
   override fun createDestination(): Destination {
     return Destination(this)
   }
 
-  var isInitial: Boolean = false
-
   override fun navigate(destination: FragmentXNavigator.Destination, args: Bundle?,
                         navOptions: NavOptions?) {
     Log.d("Navigator", "navigate(${destination.label})")
 
+
+    val destinationIndex = controller.rootFragments.orEmpty().indexOfFirst {
+      it.arguments!!.getInt("destinationId") == destination.id
+    }
+
+    if (isInitialized) {
+      controller.initialize(index = destinationIndex, savedInstanceState = savedState)
+      isInitialized = false
+      return
+    }
+
     if (destination.isRootFragment) {
-//      if (controller.currentStack.orEmpty().size == 1) {
-//        dispatchOnNavigatorNavigated(destination.id, BACK_STACK_DESTINATION_ADDED)
-//      }
-      controller.switchTab(rootFragments.indexOfFirst {
-        it.arguments!!.getInt("destinationId") == destination.id
-      })
+      controller.switchTab(destinationIndex)
     } else {
       val fragment = destination.createFragment(args)
-
       controller.pushFragment(fragment)
+    }
+  }
+
+  override fun onSaveState(): Bundle? {
+    return savedState
+  }
+
+  override fun onRestoreState(savedState: Bundle) {
+    this.savedState = savedState
+  }
+
+  private inner class TransactionListener : FragNavController.TransactionListener {
+    private var lastTabTransactionId: Int = 0
+    private var lastTabTransactionIndex: Int = NO_INDEX
+
+    override fun onFragmentTransaction(fragment: Fragment?, transactionType: FragNavController.TransactionType) {
+      val id = getFragmentId(fragment)
+
+      id?.let {
+        when (transactionType) {
+          FragNavController.TransactionType.PUSH -> {
+            dispatchOnNavigatorNavigated(it, BACK_STACK_DESTINATION_ADDED)
+            Log.d("Navigator#onFragmentTransaction", "dispatchOnNavigatorNavigated(BACK_STACK_DESTINATION_ADDED) $fragment")
+          }
+          FragNavController.TransactionType.POP -> {
+            dispatchOnNavigatorNavigated(it, BACK_STACK_DESTINATION_POPPED)
+            Log.d("Navigator#onFragmentTransaction", "dispatchOnNavigatorNavigated(BACK_STACK_DESTINATION_POPPED) $fragment")
+          }
+          FragNavController.TransactionType.REPLACE -> {
+            dispatchOnNavigatorNavigated(it, BACK_STACK_UNCHANGED)
+            Log.d("Navigator#onFragmentTransaction", "dispatchOnNavigatorNavigated(BACK_STACK_UNCHANGED) $fragment")
+          }
+          else -> {
+          }
+        }
+      }
+    }
+
+    override fun onTabTransaction(fragment: Fragment?, index: Int) {
+      Log.d("Navigator", "onTabTransaction ${fragment?.javaClass?.simpleName}")
+
+      val id = getFragmentId(fragment)
+
+      if (lastTabTransactionIndex != NO_INDEX) {
+        val lastStack = controller.getStack(lastTabTransactionIndex)
+        lastStack.orEmpty().forEach { lastFragment ->
+          getFragmentId(lastFragment)?.let { fragmentID ->
+            dispatchOnNavigatorNavigated(fragmentID, BACK_STACK_DESTINATION_POPPED)
+            Log.d("Navigator#onTabTransaction", "dispatchOnNavigatorNavigated(BACK_STACK_DESTINATION_POPPED) $lastFragment")
+          }
+        }
+      }
+
+
+      Log.d("Navigator#currentStack", "${controller.currentStack?.size}")
+
+      controller.currentStack.orEmpty().forEach { currentFragment ->
+        getFragmentId(currentFragment)?.let { fragmentID ->
+          dispatchOnNavigatorNavigated(fragmentID, BACK_STACK_DESTINATION_ADDED)
+          Log.d("Navigator#onTabTransaction", "dispatchOnNavigatorNavigated(BACK_STACK_DESTINATION_ADDED) $currentFragment")
+        }
+      }
+
+      // There is a bug in FragNav where the currentStack size does not update until it has been
+      // navigated away from for the first time.
+      if (controller.currentStack.orEmpty().isEmpty()) {
+        getFragmentId(fragment)?.let { fragmentID ->
+          dispatchOnNavigatorNavigated(fragmentID, BACK_STACK_DESTINATION_ADDED)
+          Log.d("Navigator#onTabTransaction", "dispatchOnNavigatorNavigated(BACK_STACK_DESTINATION_ADDED) $fragment")
+        }
+      }
+
+      lastTabTransactionIndex = index
+      id?.let {
+        lastTabTransactionId = id
+      }
+    }
+
+    fun onSaveState(outState: Bundle) {
+      outState.putInt(KEY_LAST_TAB_TRANSACTION_ID, lastTabTransactionId)
+      outState.putInt(KEY_LAST_TAB_TRANSACTION_INDEX, lastTabTransactionIndex)
+    }
+
+    fun onRestoreState(savedState: Bundle) {
+      lastTabTransactionId = savedState.getInt(KEY_LAST_TAB_TRANSACTION_ID, lastTabTransactionId)
+      lastTabTransactionIndex = savedState.getInt(KEY_LAST_TAB_TRANSACTION_INDEX, lastTabTransactionIndex)
     }
   }
 
@@ -161,7 +216,7 @@ class FragmentXNavigator(private val fragNavBuilder: FragNavController.Builder, 
      */
     fun createFragment(args: Bundle?): Fragment {
       val arguments = args ?: Bundle()
-      arguments?.putInt("destinationId", id)
+      arguments.putInt(ARG_DESTINATION_ID, id)
       val fragment: Fragment
       try {
         fragment = fragmentClass.newInstance() as Fragment
@@ -175,16 +230,6 @@ class FragmentXNavigator(private val fragNavBuilder: FragNavController.Builder, 
 
     companion object {
       private val controllerClasses = HashMap<String, Class<out Fragment>>()
-
-      private fun getBundleConstructor(constructors: Array<Constructor<*>>): Constructor<*> {
-        for (constructor in constructors) {
-          if (constructor.parameterTypes.size == 1 && constructor.parameterTypes[0] == Bundle::class.java) {
-            return constructor
-          }
-        }
-
-        throw IllegalStateException("The controller does not have a bundle constructor.")
-      }
     }
   }
 }
