@@ -41,11 +41,13 @@ abstract class BaseFragment : Fragment() {
 
     view.setBackgroundColor(color)
     toolbar.setBackgroundColor(color)
+    toolbar.inflateMenu(R.menu.fragmentx)
+    toolbar.setOnMenuItemClickListener { navController.navigate(it.itemId); true }
 
     midText.text = resources.getString(R.string.navigation_title, this::class.java.simpleName, index)
 
     upBtn.setOnClickListener {
-      navController.navigateUp()
+      navController.popBackStack()
     }
 
     nextBtn.setOnClickListener {

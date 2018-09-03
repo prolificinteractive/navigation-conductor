@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.*
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavController.Companion.DETACH_ON_NAVIGATE_HIDE_ON_SWITCH
+import com.ncapdevi.fragnav.FragNavTransactionOptions
 import com.prolificinteractive.conductor.archnavigation.R
 import com.prolificinteractive.fragmentx.archnavigation.FragmentXNavigator.Destination
 import java.util.*
@@ -26,7 +28,7 @@ class FragmentXNavigator(private val controller: FragNavController) : Navigator<
 
   private val transactionListener = TransactionListener()
 
-  private var isInitialized: Boolean = true
+  private var isInitialized: Boolean = false
   private var savedState: Bundle = Bundle()
 
   init {
@@ -56,35 +58,73 @@ class FragmentXNavigator(private val controller: FragNavController) : Navigator<
     Log.d("Navigator", "navigate(${destination.label})")
 
 
-    val destinationIndex = controller.rootFragments.orEmpty().indexOfFirst {
-      it.arguments!!.getInt("destinationId") == destination.id
-    }
+    val destinationIndex = getIndexFromFragment(controller.rootFragments, destination.id)
 
-    if (isInitialized) {
+    if (!isInitialized) {
       controller.initialize(index = destinationIndex, savedInstanceState = savedState)
-      isInitialized = false
+      isInitialized = true
       return
     }
 
     if (destination.isRootFragment) {
       controller.switchTab(destinationIndex)
     } else {
-      val fragment = destination.createFragment(args)
-      controller.pushFragment(fragment)
+      val options = FragNavTransactionOptions
+          .newBuilder()
+//          .apply {
+//            enterAnimation = navOptions?.enterAnim ?: -1
+//            exitAnimation = navOptions?.exitAnim ?: -1
+//            popEnterAnimation = navOptions?.popEnterAnim ?: -1
+//            popExitAnimation = navOptions?.popExitAnim ?: -1
+//          }
+          .transition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+          .build()
+
+      if (navOptions?.popUpTo != 0) {
+        val destinationFragment = getFragmentWithId(controller.currentStack, destination.id)
+        val popInclusive = if (navOptions?.isPopUpToInclusive == true) 0 else 1
+        val popCount = controller.currentStack!!.search(destinationFragment) + popInclusive
+        if (popCount > 0) {
+          controller.popFragments(popCount, options)
+        }
+      } else {
+        val fragment = destination.createFragment(args)
+        controller.pushFragment(fragment, options)
+      }
+
+    }
+  }
+
+  fun getIndexFromFragment(collection: Collection<Fragment>?, id: Int): Int {
+    return collection.orEmpty().indexOfFirst {
+      it.arguments!!.getInt(ARG_DESTINATION_ID) == id
+    }
+  }
+
+  fun getFragmentWithId(collection: Collection<Fragment>?, id: Int): Fragment? {
+    return collection.orEmpty().firstOrNull {
+      it.arguments!!.getInt(ARG_DESTINATION_ID) == id
     }
   }
 
   override fun onSaveState(): Bundle? {
+    transactionListener.onSaveState(savedState)
+    controller.onSaveInstanceState(savedState)
     return savedState
   }
 
   override fun onRestoreState(savedState: Bundle) {
     this.savedState = savedState
+    transactionListener.onRestoreState(savedState)
+    controller.initialize(transactionListener.lastTabTransactionIndex, savedState)
+    isInitialized = true
   }
 
   private inner class TransactionListener : FragNavController.TransactionListener {
-    private var lastTabTransactionId: Int = 0
-    private var lastTabTransactionIndex: Int = NO_INDEX
+    var lastTabTransactionId: Int = 0
+      private set
+    var lastTabTransactionIndex: Int = NO_INDEX
+      private set
 
     override fun onFragmentTransaction(fragment: Fragment?, transactionType: FragNavController.TransactionType) {
       val id = getFragmentId(fragment)

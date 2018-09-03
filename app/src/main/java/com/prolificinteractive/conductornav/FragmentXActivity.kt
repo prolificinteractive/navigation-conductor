@@ -38,7 +38,7 @@ class FragmentXActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    if (!navController.navigateUp()) {
+    if (!navController.popBackStack()) {
       super.onBackPressed()
     }
   }
@@ -64,7 +64,6 @@ class FragmentXActivity : AppCompatActivity() {
         Log.e("FragmentXActivity", e.message, e)
         false
       }
-
     }
   }
 }

@@ -15,11 +15,6 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <nav-graph android:value="@navigation/controller" />
         </activity>
 
@@ -37,6 +32,11 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 </manifest>

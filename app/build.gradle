@@ -61,7 +61,7 @@ android {
 }
 
 dependencies {
-  implementation project(':navigation')
+  implementation project(':navigation-conductor')
   implementation project(':navigation-fragmentx')
   implementation Deps.archNavigationFragment
   Deps.supportLibs.each { implementation it }
